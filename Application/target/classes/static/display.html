@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+	  body{
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+	  }
+	  table {
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: center;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+	<div>
+		<table id="data">
+		  <tr>
+			<th>SNO</th>
+		    <th>Name</th>
+		    <th>Email</th>
+		    <th>Age</th>
+		    <th>DOB</th>
+		  </tr>
+		</table>
+	</div>
+  <script>
+     let data1=[];
+      let data=new XMLHttpRequest();
+      data.open("GET","http://localhost:8080/users");
+      data.onload = function (){
+        data1=JSON.parse(data.response);
+        console.log(data1)
+        checker();
+      };
+      data.send();
+      
+      function checker()
+      {
+		  for(let i=0;i<data1.length;i++)
+		  {
+			  document.getElementById('data').innerHTML+=`
+			  <tr>
+			    <td>${i+1}</td>
+			    <td>${data1[i].name}</td>
+			    <td>${data1[i].email}</td>
+			    <td>${data1[i].age}</td>
+			    <td>${data1[i].dob}</td>
+			  </tr>
+			  `
+		  }
+	  }
+  </script>
+</body>
+</html>
